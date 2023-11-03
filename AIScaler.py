@@ -15,9 +15,11 @@ from ui.ui_main import Ui_MainWindow
 from ui.ui_image import Ui_Image
 
 BASE_DIR = os.path.abspath('.')
+USERPROFILE = os.path.join(os.environ['USERPROFILE'], 'Pictures')
 MODEL_PATH = os.path.join(BASE_DIR, 'models')
-INPUT_PATH = os.path.join(BASE_DIR, 'inputs')
-OUTPUT_PATH = os.path.join(BASE_DIR, 'outputs')
+INPUT_PATH = USERPROFILE  # os.path.join(BASE_DIR, 'inputs')
+OUTPUT_PATH = USERPROFILE  # os.path.join(BASE_DIR, 'outputs')
+APPDATA = os.path.join(os.environ['APPDATA'], 'AIScaler')
 
 VERSION = '1.0.0'
 
@@ -141,22 +143,27 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         self.frameOutput.setLayout(layoutOutput)
 
     def updateTemps(self, write=False):
-        if not os.path.isfile('tmp.json'):
-            with open('tmp.json', 'w') as f:
+        tmppath = os.path.join(APPDATA, 'tmp.json')
+        if not os.path.isdir(APPDATA):
+            os.makedirs(APPDATA)
+        if not os.path.isfile(tmppath):
+            with open(tmppath, 'w') as f:
                 f.write(json.dumps({
                     'inputs': self.inputs,
                     'outputs': self.outputs,
                 }))
                 f.close()
         if write:
-            with open('tmp.json', 'w') as f:
+            with open(tmppath, 'w') as f:
                 f.write(json.dumps({
                     'inputs': self.inputs,
                     'outputs': self.outputs,
                 }))
+                self.temps['inputs'] = self.inputs
+                self.temps['outputs'] = self.outputs
                 f.close()
         else:
-            with open('tmp.json', 'r') as f:
+            with open(tmppath, 'r') as f:
                 self.temps = json.loads(f.read())
                 if self.temps:
                     self.inputs = self.temps['inputs']
@@ -186,10 +193,10 @@ class MainWindow(QMainWindow, Ui_MainWindow):
     def initDir(self):
         if not os.path.isdir('models'):
             os.mkdir('models')
-        if not os.path.isdir('inputs'):
-            os.mkdir('inputs')
-        if not os.path.isdir('outputs'):
-            os.mkdir('outputs')
+        # if not os.path.isdir('inputs'):
+        #     os.mkdir('inputs')
+        # if not os.path.isdir('outputs'):
+        #     os.mkdir('outputs')
 
     def initModel(self):
         if os.path.isdir('models'):
