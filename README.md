@@ -16,7 +16,7 @@ Enlarge images without losing quality.
 ### 🐌 Windows Only
 (Windows 10 and later)
 
-1. Go to [releases section](https://github.com/aiscaler/aiscaler/releases/latest)
+1. Go to [releases section](https://github.com/AIScaler/AIScaler/releases/latest)
 2. Download the `.exe` file.
 3. Double click exe file, wait for installation, profit.
 
@@ -25,11 +25,11 @@ Enlarge images without losing quality.
 ## ▶ Running
 
 > [!NOTE]
-> If you are not willing to install [git](https://git-scm.com/downloads), you can skip the first line, download [the source zip](https://github.com/aiscaler/aiscaler/archive/refs/heads/main.zip) and extract it to `aiscaler` instead and carry on with the rest of the instructions.
+> If you are not willing to install [git](https://git-scm.com/downloads), you can skip the first line, download [the source zip](https://github.com/AIScaler/AIScaler/archive/refs/heads/main.zip) and extract it to `AIScaler` instead and carry on with the rest of the instructions.
 
 ```sh
-git clone https://github.com/aiscaler/aiscaler
-cd aiscaler
+git clone https://github.com/AIScaler/AIScaler
+cd AIScaler
 
 # INSTALL DEPENDENCIES
 pip install -r requirements.txt
@@ -44,7 +44,7 @@ python AIScaler.py
 install -r requirements.txt
 
 # RUN
-pyinstaller aiscaler.spec
+pyinstaller AIScaler.spec
 ```
 
 # Credits
