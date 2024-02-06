@@ -11,47 +11,19 @@ Enlarge images without losing quality.
 > [!IMPORTANT]
 > You'll need a Vulkan compatible GPU to upscale images. Many CPU and iGPUs do not work but no harm in trying.
 
-# 👨‍💻 Installation
+## Installation
 
-### 🐌 Windows Only
-(Windows 10 and later)
+### Windows Only (Windows 10 and later)
 
 1. Go to [releases section](https://github.com/AIScaler/AIScaler/releases/latest)
 2. Download the `.exe` file.
-3. Double click exe file, wait for installation, profit.
+3. Double click exe file, wait for installation.
 
-# 🛠 Development
-
-## ▶ Running
-
-> [!NOTE]
-> If you are not willing to install [git](https://git-scm.com/downloads), you can skip the first line, download [the source zip](https://github.com/AIScaler/AIScaler/archive/refs/heads/main.zip) and extract it to `AIScaler` instead and carry on with the rest of the instructions.
-
-```sh
-git clone https://github.com/AIScaler/AIScaler
-cd AIScaler
-
-# INSTALL DEPENDENCIES
-pip install -r requirements.txt
-
-# RUN PROGRAM
-python AIScaler.py
-```
-## 🏗️ Building
-
-```sh
-# INSTALL DEPENDENCIES
-install -r requirements.txt
-
-# RUN
-pyinstaller AIScaler.spec
-```
-
-# Credits
+## Credits
 
 - Real-ESRGAN for their wonderful research work. [Real-ESRGAN: Copyright (c) 2021, Xintao Wang](https://github.com/xinntao/Real-ESRGAN/)
 
-# License
+## License
 
 Copyright 2023 zeindevs
 
