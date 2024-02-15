@@ -2,6 +2,8 @@
 
 <div align="center">
 
+<img src="./screenshot.jpg" />
+
 #### Free and Open Source AI Image Upscaler
 AI Scaler make you enlarge and enhance low-resolution images using advanced AI algorithms.
 Enlarge images without losing quality.
