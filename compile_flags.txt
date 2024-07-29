@@ -1,0 +1,2 @@
+-std=c++17
+-ID:/Qt/6.7.2/msvc2019_64_static/include
