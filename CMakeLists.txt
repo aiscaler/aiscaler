@@ -7,11 +7,6 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-if (MSVC)
-  add_compile_options(/Zc:__cplusplus)
-endif()
-
-# set(CMAKE_INSTALL_PREFIX install)
 set(CMAKE_PREFIX_PATH "D:/Qt/6.7.2/msvc2019_64_static") # Custom Path Qt6 Static
 set(CMAKE_INSTALL_PREFIX "D:/Apps/AIScaler") # Install path location
 
@@ -63,6 +58,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 	Qt6::Gui)
 
 if(MSVC)
+	add_compile_options(/Zc:__cplusplus)
 	target_link_options(${PROJECT_NAME} PRIVATE
 		"/SUBSYSTEM:WINDOWS")
 endif()

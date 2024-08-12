@@ -1,29 +1,29 @@
 run-debug: shared-debug
-	cd build && ./AIScaler.exe
+	cd build/msys && ./AIScaler.exe
 
 run-release: shared-release
-	cd build && ./install/AIScaler.exe
+	cd build/msys && ./install/AIScaler.exe
 
 run-static: static
-	cd mvsc/Release && ./AIScaler.exe
+	cd build/msvc/Release && ./AIScaler.exe
 
 shared-debug:
-	cmake --build build --config Debug
+	cmake --build build/msys --config Debug
 
 shared-release:
-	cmake --build build --config Release
+	cmake --build build/msys --config Release
 
 static:
-	cmake --build mvsc --config Release
+	cmake --build build/msvc --config Release
 
 static-install:
-	cmake --install mvsc --config Release
+	cmake --install build/msvc --config Release
 
 init-debug:
-	cmake -S . -B build -G "Ninja" -DCMAKE_BUILD_TYPE="Debug"
+	cmake -S . -B build/msys -G "Ninja" -DCMAKE_BUILD_TYPE="Debug"
 
 init-release:
-	cmake -S . -B build -G "Ninja" -DCMAKE_BUILD_TYPE="Release"
+	cmake -S . -B build/msys -G "Ninja" -DCMAKE_BUILD_TYPE="Release"
 
 init-static:
-	cmake -S . -B mvsc -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release"
+	cmake -S . -B build/msvc -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release"

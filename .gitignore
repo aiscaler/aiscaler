@@ -33,11 +33,13 @@
 
 # Build directory
 build/*
-mvsc/*
 
 # Model directory
 models/*
 
+install
+
+# Exclude files
 !*.gitkeep
 !models/*.dll
 !models/*.exe

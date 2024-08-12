@@ -31,21 +31,21 @@ Enlarge images without losing quality.
 pacman -S mingw-w64-ucrt-x86_64-qt6-base
 
 mkdir build && cd build
-cmake -S . -B build -G "Ninja" -DCMAKE_BUILD_TYPE="Debug" # for Debug
-cmake -S . -B build -G "Ninja" -DCMAKE_BUILD_TYPE="Release" # for Release
-cmake --build build --config Debug
-cmake --build build --config Release
+cmake -S . -B build/msys -G "Ninja" -DCMAKE_BUILD_TYPE="Debug" # for Debug
+cmake -S . -B build/msys -G "Ninja" -DCMAKE_BUILD_TYPE="Release" # for Release
+cmake --build build/msys --config Debug
+cmake --build build/msys --config Release
 ```
 
-### Static Build (MVSC)
+### Static Build (MSVC)
 
 ```sh
 # Download Qt6 Static from https://github.com/gmh5225/static-build-qt6/releases/tag/qt6_660_static
 
-mkdir mvsc && cd mvsc
-cmake -S . -B mvsc -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release"
-cmake --build mvsc --config Release
-cmake --install mvsc
+mkdir msvc && cd msvc
+cmake -S . -B build/msvc -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release"
+cmake --build build/msvc --config Release
+cmake --install build/msvc
 ```
 
 ## Credits
