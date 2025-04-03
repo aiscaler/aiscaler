@@ -10,6 +10,7 @@
 #include <QtCore/QThread>
 #include <QtCore/QTimer>
 #include <QtCore/QtContainerFwd>
+#include <QtGui/QScreen>
 #include <QtWidgets/QFileDialog>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QVBoxLayout>
@@ -19,6 +20,7 @@
 #include "mainwindow.h"
 #include "ui/ui_mainwindow.h"
 #include "worker.h"
+#include <cstdlib>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -26,6 +28,9 @@ MainWindow::MainWindow(QWidget *parent)
     , worker(new Worker(this))
 {
     ui->setupUi(this);
+
+    resize(QSize(1200, 600));
+    move(screen()->availableGeometry().center() - frameGeometry().center());
 
     inputMode = FILE_MODE;
 
@@ -88,8 +93,11 @@ void MainWindow::on_pushButtonFolder_clicked()
 {
     qDebug() << "CLICKED: open folder";
 
-    inputFolder = QFileDialog::getExistingDirectory(
-        nullptr, "Open folder", "", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    inputFolder = QFileDialog::getExistingDirectory(nullptr,
+                                                    "Open folder",
+                                                    "",
+                                                    QFileDialog::ShowDirsOnly
+                                                        | QFileDialog::DontResolveSymlinks);
 
     if (!inputFolder.isEmpty()) {
         qDebug() << "FOLDER SELECTED:" << inputFolder.toStdString();
@@ -112,8 +120,10 @@ void MainWindow::on_pushButtonFile_clicked()
 {
     qDebug() << "CLICKED: open file";
 
-    inputFile
-        = QFileDialog::getOpenFileName(nullptr, "Open file", "", "Images (*.png *.webp *.jpg)");
+    inputFile = QFileDialog::getOpenFileName(nullptr,
+                                             "Open file",
+                                             "",
+                                             "Images (*.png *.webp *.jpg)");
 
     if (!inputFile.isEmpty()) {
         qDebug() << "FILE SELECTED:" << inputFile.toStdString();
@@ -134,8 +144,11 @@ void MainWindow::on_pushButtonOutput_clicked()
 {
     qDebug() << "CLICKED: output";
 
-    outputFolder = QFileDialog::getExistingDirectory(
-        nullptr, "Open folder", "", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    outputFolder = QFileDialog::getExistingDirectory(nullptr,
+                                                     "Open folder",
+                                                     "",
+                                                     QFileDialog::ShowDirsOnly
+                                                         | QFileDialog::DontResolveSymlinks);
 
     if (!outputFolder.isEmpty()) {
         qDebug() << "OUTPUT FOLDER SELECTED:" << outputFolder.toStdString();
@@ -217,7 +230,15 @@ bool MainWindow::loadImages(QString filePath)
 
 QStringList MainWindow::loadModel(const QString &path)
 {
-    QDir dir(path);
+    QString modelPath = path;
+
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    QString appDir = env.value("APPDIR");
+
+    if (!appDir.isEmpty())
+        modelPath = QDir::cleanPath(appDir + "/" + path);
+
+    QDir dir(modelPath);
 
     QStringList filters = {"*.bin"};
     QStringList binFiles = dir.entryList(filters, QDir::Files);
@@ -234,9 +255,18 @@ void MainWindow::process(const QString &filePath)
     QDir dir = QDir::current();
     QString program = dir.absoluteFilePath("models/realesrgan-ncnn-vulkan");
     QString modelPath = dir.absoluteFilePath("models");
+
+    QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
+    QString appDir = env.value("APPDIR");
+
+    if (!appDir.isEmpty()) {
+        modelPath = QDir::cleanPath(appDir + "/" + "models");
+        program = QDir::cleanPath(modelPath + "/" + "realesrgan-ncnn-vulkan");
+    }
+
     QFileInfo fileInfo(filePath);
-    outputFile
-        = replaceSuffix(outputFolder + "/" + fileInfo.fileName(), ui->comboBoxFormat->currentText());
+    outputFile = replaceSuffix(outputFolder + "/" + fileInfo.fileName(),
+                               ui->comboBoxFormat->currentText());
     QFileInfo outputFileInfo(outputFile);
 
     qDebug() << "Check output exist:" << outputFile;
@@ -273,8 +303,8 @@ void MainWindow::processFinished(bool status)
             imageResult->setImage(outputFile);
 
             process(inputImg);
-            ui->labelProgress->setText(
-                QString::number(processed) + "/" + QString::number(listFile.length()));
+            ui->labelProgress->setText(QString::number(processed) + "/"
+                                       + QString::number(listFile.length()));
             return;
         }
 
@@ -282,8 +312,8 @@ void MainWindow::processFinished(bool status)
 
         imageResult->setImage(outputFile);
         ui->labelStatusBar->setText("Completed: " + outputFile);
-        ui->labelProgress->setText(
-            QString::number(processed) + "/" + QString::number(listFile.length()));
+        ui->labelProgress->setText(QString::number(processed) + "/"
+                                   + QString::number(listFile.length()));
 
     } else {
         ui->labelStatusBar->setText("Canceled");

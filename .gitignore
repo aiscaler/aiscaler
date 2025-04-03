@@ -6,6 +6,7 @@
 *.lo
 *.o
 *.obj
+*.AppImage
 
 # Precompiled Headers
 *.gch
@@ -37,9 +38,19 @@ build/*
 # Model directory
 models/*
 
-install
+install/
+inputs/*
+outputs/*
+AppDir/*
+AppDir/models/*
 
 # Exclude files
 !*.gitkeep
 !models/*.dll
+!models/realesrgan-ncnn-vulkan
 !models/*.exe
+!AppDir/models
+!AppDir/models/*.gitkeep
+!AppDir/*.desktop
+!AppDir/AppRun
+!AppDir/AIScaler.png

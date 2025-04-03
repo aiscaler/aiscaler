@@ -49,7 +49,7 @@ void Image::setImage(const QString &file)
     QImage img;
     if (img.load(file)) {
         QImage thumb = img.scaled(
-            img.width() / 1.2, img.height() / 1.2, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+            img.width() / 1.1, img.height() / 1.1, Qt::KeepAspectRatio, Qt::SmoothTransformation);
         image = thumb;
         ui->labelImage->setPixmap(QPixmap::fromImage(thumb));
         resizeImage();

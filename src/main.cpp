@@ -19,7 +19,6 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
     app.setStyle(QStyleFactory::create("Fusion"));
-    app.setWindowIcon(QIcon(":/image/icon.ico"));
 
     QPalette lightPalette;
 
@@ -41,9 +40,8 @@ int main(int argc, char *argv[])
 
     MainWindow w;
     w.setWindowTitle("AIScaler");
-    w.resize(QSize(1200, 600));
+    w.setWindowIcon(QIcon(":/image/icons/icon.ico"));
     w.setVersion("1.0.0");
-
     w.show();
 
     return app.exec();
@@ -53,11 +51,10 @@ int main(int argc, char *argv[])
 #include <Windows.h>
 #include <shellapi.h>
 
-int WINAPI CALLBACK WinMain(
-    _In_ HINSTANCE hInstance,
-    _In_opt_ HINSTANCE hPrevInstance,
-    _In_ LPSTR lpCmdLine,
-    _In_ int nShowCmd)
+int WINAPI CALLBACK WinMain(_In_ HINSTANCE hInstance,
+                            _In_opt_ HINSTANCE hPrevInstance,
+                            _In_ LPSTR lpCmdLine,
+                            _In_ int nShowCmd)
 {
     int argc = 0;
     auto argv = CommandLineToArgvW(GetCommandLineW(), &argc);

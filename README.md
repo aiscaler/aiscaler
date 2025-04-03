@@ -16,11 +16,18 @@ Enlarge images without losing quality.
 
 ## Installation
 
-### Windows Only (Windows 10 and later)
+### Windows (Windows 10 and later)
 
 1. Go to [releases section](https://github.com/AIScaler/AIScaler/releases/latest)
-2. Download the `.exe` file.
+2. Download the `AIScaler-vx.x.x-x86_64.exe` file.
 3. Double click exe file, wait for installation.
+
+### Linux
+
+1. Go to [releases section](https://github.com/AIScaler/AIScaler/releases/latest)
+2. Download the `.AppImage` file.
+3. `chmod +x AIScaler-vx.x.x-x86_64.AppImage`
+4. `./AIScaler-vx.x.x-x86_64.AppImage`
 
 ## Build
 
@@ -43,7 +50,7 @@ cmake --build build/msys --config Release
 # Download Qt6 Static from https://github.com/gmh5225/static-build-qt6/releases/tag/qt6_660_static
 
 mkdir msvc && cd msvc
-cmake -S . -B build/msvc -G "Visual Studio 17 2022" -DCMAKE_CONFIGURATION_TYPES="Release"
+cmake -S . -B build/msvc -G "Visual Studio 17 2022" -DCMAKE_PREFIX_PATH="D:/Qt/6.7.2/msvc2019_64_static" -DCMAKE_INSTALL_PREFIX="install" -DCMAKE_CONFIGURATION_TYPES="Release"
 cmake --build build/msvc --config Release
 cmake --install build/msvc
 ```

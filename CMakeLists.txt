@@ -7,8 +7,8 @@ set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_PREFIX_PATH "D:/Qt/6.7.2/msvc2019_64_static") # Custom Path Qt6 Static
-set(CMAKE_INSTALL_PREFIX "D:/Apps/AIScaler") # Install path location
+# set(CMAKE_PREFIX_PATH "D:/Qt/6.7.2/msvc2019_64_static") # Custom Path Qt6 Static
+set(CMAKE_INSTALL_PREFIX "install") 
 
 project(AIScaler VERSION 1.0.0 LANGUAGES CXX)
 
@@ -55,7 +55,8 @@ qt_add_executable(${PROJECT_NAME} MANUAL_FINALIZATION
 target_link_libraries(${PROJECT_NAME} PRIVATE 
 	Qt6::Core
 	Qt6::Widgets
-	Qt6::Gui)
+	Qt6::Gui
+)
 
 if(MSVC)
 	add_compile_options(/Zc:__cplusplus)
@@ -73,20 +74,20 @@ if(CMAKE_BUILD_TYPE STREQUAL "Release" OR CMAKE_CONFIGURATION_TYPE STREQUAL "Rel
 	)
 endif()
 
-if(CMAKE_BUILD_TYPE STREQUAL "Release")
-	set(INSTALL_PATH "${CMAKE_CURRENT_BINARY_DIR}/install")
-	file(MAKE_DIRECTORY ${INSTALL_PATH})
+if(WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Release")
+  set(INSTALL_PATH "${CMAKE_CURRENT_BINARY_DIR}/install")
+  file(MAKE_DIRECTORY ${INSTALL_PATH})
 
-	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-	    COMMAND ${CMAKE_COMMAND} -E make_directory "${INSTALL_PATH}"
-	    COMMAND windeployqt6 --no-translations --no-opengl-sw --no-translations --no-compiler-runtime --dir ${INSTALL_PATH} $<TARGET_FILE:${PROJECT_NAME}>
-	    COMMENT "Deploying Qt application..."
- 	)
+  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E make_directory "${INSTALL_PATH}"
+      COMMAND windeployqt6 --no-translations --no-opengl-sw --no-translations --no-compiler-runtime --dir ${INSTALL_PATH} $<TARGET_FILE:${PROJECT_NAME}>
+      COMMENT "Deploying Qt application..."
+  )
 
-	add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
-	    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${INSTALL_PATH}
-	    COMMENT "Copying executable to deployment directory"
- 	)
+  add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:${PROJECT_NAME}> ${INSTALL_PATH}
+      COMMENT "Copying executable to deployment directory"
+  )
 endif()
 
 install(TARGETS ${PROJECT_NAME}
