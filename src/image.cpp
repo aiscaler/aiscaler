@@ -16,12 +16,13 @@ Image::Image(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Image)
     , zoom(1)
+    , scale(1.1)
 {
     ui->setupUi(this);
 
     scroller->scroller(ui->scrollArea);
-    scroller->grabGesture(
-        ui->scrollArea->viewport(), QScroller::ScrollerGestureType::LeftMouseButtonGesture);
+    scroller->grabGesture(ui->scrollArea->viewport(),
+                          QScroller::ScrollerGestureType::LeftMouseButtonGesture);
 
     qDebug() << "Image thread: " << QThread::currentThread();
 }
@@ -48,8 +49,10 @@ void Image::setImage(const QString &file)
 {
     QImage img;
     if (img.load(file)) {
-        QImage thumb = img.scaled(
-            img.width() / 1.1, img.height() / 1.1, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        QImage thumb = img.scaled(img.width() / scale,
+                                  img.height() / scale,
+                                  Qt::KeepAspectRatio,
+                                  Qt::SmoothTransformation);
         image = thumb;
         ui->labelImage->setPixmap(QPixmap::fromImage(thumb));
         resizeImage();
@@ -59,8 +62,8 @@ void Image::setImage(const QString &file)
 void Image::resizeImage()
 {
     if (!image.isNull()) {
-        int w = std::round(width() / 1.1) + (zoom * 10);
-        int h = std::round(height() / 1.1) + (zoom * 10);
+        int w = std::round(width() / scale) + (zoom * 10);
+        int h = std::round(height() / scale) + (zoom * 10);
         QPixmap imgInput = QPixmap::fromImage(image);
         ui->labelImage->setPixmap(imgInput.scaled(w, h, Qt::AspectRatioMode::KeepAspectRatio));
         ui->labelImage->setAlignment(Qt::AlignmentFlag::AlignCenter);

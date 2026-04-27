@@ -17,11 +17,10 @@ Worker::Worker(QObject *parent)
     process->setProcessChannelMode(QProcess::ProcessChannelMode::MergedChannels);
 
     connect(process, &QProcess::readyReadStandardOutput, this, &Worker::readProcessOutput);
-    connect(
-        process,
-        QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
-        this,
-        &Worker::onProcessFinished);
+    connect(process,
+            QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished),
+            this,
+            &Worker::onProcessFinished);
     connect(process, &QProcess::errorOccurred, this, &Worker::onProcessErrorOccurred);
 
     qDebug() << "Worker thread: " << QThread::currentThread();

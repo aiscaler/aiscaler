@@ -20,7 +20,6 @@
 #include "mainwindow.h"
 #include "ui/ui_mainwindow.h"
 #include "worker.h"
-#include <cstdlib>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)

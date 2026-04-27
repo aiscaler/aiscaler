@@ -60,9 +60,7 @@
        </font>
       </property>
       <property name="styleSheet">
-       <string notr="true">#frame {
-	background-color: rgb(255, 255, 255);
-}</string>
+       <string notr="true"></string>
       </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
@@ -539,9 +537,7 @@ font-weight: bold;</string>
        </sizepolicy>
       </property>
       <property name="styleSheet">
-       <string notr="true">#frameStatusBar {
-	background-color: rgb(255, 255, 255);
-}</string>
+       <string notr="true"></string>
       </property>
       <property name="frameShape">
        <enum>QFrame::NoFrame</enum>

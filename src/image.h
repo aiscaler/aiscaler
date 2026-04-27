@@ -40,6 +40,7 @@ private:
     QScroller *scroller;
     QImage image;
     int zoom;
+    float scale;
 };
 
 #endif // IMAGE_H

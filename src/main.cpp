@@ -1,6 +1,5 @@
 #include <csignal>
 #include <QtGui/QIcon>
-#include <QtGui/QPalette>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QStyleFactory>
 
@@ -19,24 +18,6 @@ int main(int argc, char *argv[])
 
     QApplication app(argc, argv);
     app.setStyle(QStyleFactory::create("Fusion"));
-
-    QPalette lightPalette;
-
-    lightPalette.setColor(QPalette::Window, Qt::white);
-    lightPalette.setColor(QPalette::WindowText, Qt::black);
-    lightPalette.setColor(QPalette::Base, Qt::white);
-    lightPalette.setColor(QPalette::AlternateBase, Qt::lightGray);
-    lightPalette.setColor(QPalette::ToolTipBase, Qt::black);
-    lightPalette.setColor(QPalette::ToolTipText, Qt::white);
-    lightPalette.setColor(QPalette::Text, Qt::black);
-    lightPalette.setColor(QPalette::Button, Qt::white);
-    lightPalette.setColor(QPalette::ButtonText, Qt::black);
-    lightPalette.setColor(QPalette::BrightText, Qt::red);
-    lightPalette.setColor(QPalette::Link, Qt::blue);
-    lightPalette.setColor(QPalette::Highlight, Qt::blue);
-    lightPalette.setColor(QPalette::HighlightedText, Qt::white);
-
-    app.setPalette(lightPalette);
 
     MainWindow w;
     w.setWindowTitle("AIScaler");

@@ -1,3 +1,8 @@
 -std=c++17
+
+# windows
 -ID:/Qt/6.7.2/msvc2019_64_static/include
+
+# linux
 -I/usr/include/qt6
+-I./build/mingw/AIScaler_autogen/include
